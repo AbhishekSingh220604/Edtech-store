@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduLearn - Online Learning Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --dark-color: #1f2937;
+            --light-color: #f9fafb;
+            --text-color: #374151;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #fff;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            padding: 0.5rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .cart-icon:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s;
+        }
+
+        .cta-button {
+            background: white;
+            color: var(--primary-color);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Search & Filter Section */
+        .search-section {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            min-width: 250px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Courses Grid */
+        .courses-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--dark-color);
+            text-align: center;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .course-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .course-content {
+            padding: 1.5rem;
+        }
+
+        .course-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--light-color);
+            color: var(--primary-color);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .course-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .course-instructor {
+            color: #6b7280;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .course-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .course-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .course-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .add-to-cart-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .add-to-cart-btn.added {
+            background: #10b981;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: var(--light-color);
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .feature-description {
+            color: #6b7280;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .author-info h4 {
+            color: var(--dark-color);
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-modal.active {
+            display: flex;
+        }
+
+        .cart-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-item-info h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .cart-item-price {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .remove-item {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cart-total {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--border-color);
+            text-align: right;
+        }
+
+        .cart-total h3 {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+            color: #6b7280;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                📚 EduLearn
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        🛒
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Transform Your Future with Quality Education</h1>
+        <p>Access world-class courses from industry experts. Learn at your own pace.</p>
+        <button class="cta-button" onclick="document.getElementById('courses').scrollIntoView({behavior: 'smooth'})">
+            Explore Courses
+        </button>
+    </section>
+
+    <!-- Search & Filter -->
+    <section class="search-section">
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search for courses..." onkeyup="filterCourses()">
+        </div>
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterByCategory('all')">All Courses</button>
+            <button class="filter-btn" onclick="filterByCategory('programming')">Programming</button>
+            <button class="filter-btn" onclick="filterByCategory('design')">Design</button>
+            <button class="filter-btn" onclick="filterByCategory('business')">Business</button>
+            <button class="filter-btn" onclick="filterByCategory('marketing')">Marketing</button>
+            <button class="filter-btn" onclick="filterByCategory('data-science')">Data Science</button>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses-section" id="courses">
+        <h2 class="section-title">Popular Courses</h2>
+        <div class="courses-grid" id="coursesGrid">
+            <!-- Courses will be dynamically loaded here -->
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <h2 class="section-title">Why Choose EduLearn?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎓</div>
+                <h3 class="feature-title">Expert Instructors</h3>
+                <p class="feature-description">Learn from industry professionals with years of experience</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⏰</div>
+                <h3 class="feature-title">Lifetime Access</h3>
+                <p class="feature-description">Access your courses anytime, anywhere, forever</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3 class="feature-title">Mobile Learning</h3>
+                <p class="feature-description">Learn on the go with our mobile-friendly platform</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3 class="feature-title">Certificates</h3>
+                <p class="feature-description">Earn certificates upon course completion</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <h2 class="section-title">What Our Students Say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"EduLearn transformed my career! The courses are well-structured and the instructors are amazing. I landed my dream job as a software developer."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">RS</div>
+                    <div class="author-info">
+                        <h4>Rahul Sharma</h4>
+                        <p>Software Developer</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"The UI/UX design course exceeded my expectations. The practical projects helped me build a strong portfolio. Highly recommended!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">PK</div>
+                    <div class="author-info">
+                        <h4>Priya Kapoor</h4>
+                        <p>UI/UX Designer</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Best investment in my education! The data science course is comprehensive and the support from instructors is excellent."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AM</div>
+                    <div class="author-info">
+                        <h4>Amit Mehta</h4>
+                        <p>Data Analyst</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Shopping Cart</h2>
+                <button class="close-cart" onclick="toggleCart()">×</button>
+            </div>
+            <div id="cartItems">
+                <div class="empty-cart">
+                    <p>Your cart is empty</p>
+                </div>
+            </div>
+            <div class="cart-total" id="cartTotal" style="display: none;">
+                <h3>Total: ₹<span id="totalAmount">0</span></h3>
+                <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About EduLearn</h3>
+                <p>Empowering learners worldwide with quality education and industry-relevant skills.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#careers">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#help">Help Center</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#terms">Terms of Service</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li>📧 info@edulearn.com</li>
+                    <li>📱 +91 98765 43210</li>
+                    <li>📍 New Delhi, India</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 EduLearn. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Course Data
+        const courses = [
+            {
+                id: 1,
+                title: "Complete Web Development Bootcamp",
+                instructor: "Dr. Anjali Verma",
+                category: "programming",
+                price: 2999,
+                rating: 4.8,
+                students: 15420,
+                duration: "45 hours",
+                icon: "💻"
+            },
+            {
+                id: 2,
+                title: "Python for Data Science",
+                instructor: "Prof. Rajesh Kumar",
+                category: "data-science",
+                price: 3499,
+                rating: 4.9,
+                students: 12350,
+                duration: "50 hours",
+                icon: "🐍"
+            },
+            {
+                id: 3,
+                title: "UI/UX Design Masterclass",
+                instructor: "Sneha Patel",
+                category: "design",
+                price: 2499,
+                rating: 4.7,
+                students: 9870,
+                duration: "35 hours",
+                icon: "🎨"
+            },
+            {
+                id: 4,
+                title: "Digital Marketing Complete Course",
+                instructor: "Vikram Singh",
+                category: "marketing",
+                price: 1999,
+                rating: 4.6,
+                students: 18900,
+                duration: "30 hours",
+                icon: "📱"
+            },
+            {
+                id: 5,
+                title: "Business Analytics & Strategy",
+                instructor: "Dr. Meera Sharma",
+                category: "business",
+                price: 3999,
+                rating: 4.8,
+                students: 7650,
+                duration: "40 hours",
+                icon: "📊"
+            },
+            {
+                id: 6,
+                title: "Machine Learning A-Z",
+                instructor: "Arjun Reddy",
+                category: "data-science",
+                price: 4499,
+                rating: 4.9,
+                students: 11200,
+                duration: "60 hours",
+                icon: "🤖"
+            },
+            {
+                id: 7,
+                title: "React & Next.js Development",
+                instructor: "Karan Malhotra",
+                category: "programming",
+                price: 3299,
+                rating: 4.8,
+                students: 8940,
+                duration: "42 hours",
+                icon: "⚛️"
+            },
+            {
+                id: 8,
+                title: "Graphic Design Fundamentals",
+                instructor: "Pooja Desai",
+                category: "design",
+                price: 2199,
+                rating: 4.7,
+                students: 10500,
+                duration: "28 hours",
+                icon: "✏️"
+            },
+            {
+                id: 9,
+                title: "SEO & Content Marketing",
+                instructor: "Sahil Khan",
+                category: "marketing",
+                price: 1799,
+                rating: 4.6,
+                students: 14300,
+                duration: "25 hours",
+                icon: "🔍"
+            },
+            {
+                id: 10,
+                title: "Financial Management & Accounting",
+                instructor: "CA Neha Gupta",
+                category: "business",
+                price: 3699,
+                rating: 4.7,
+                students: 6800,
+                duration: "38 hours",
+                icon: "💰"
+            },
+            {
+                id: 11,
+                title: "Mobile App Development with Flutter",
+                instructor: "Ravi Shankar",
+                category: "programming",
+                price: 3599,
+                rating: 4.8,
+                students: 9100,
+                duration: "48 hours",
+                icon: "📱"
+            },
+            {
+                id: 12,
+                title: "Advanced Excel & Data Visualization",
+                instructor: "Simran Kaur",
+                category: "data-science",
+                price: 1999,
+                rating: 4.6,
+                students: 16700,
+                duration: "22 hours",
+                icon: "📈"
+            }
+        ];
+
+        let cart = [];
+        let currentFilter = 'all';
+
+        // Initialize courses
+        function displayCourses(coursesToDisplay) {
+            const coursesGrid = document.getElementById('coursesGrid');
+            coursesGrid.innerHTML = '';
+
+            coursesToDisplay.forEach(course => {
+                const courseCard = `
+                    <div class="course-card" data-category="${course.category}">
+                        <div class="course-image">${course.icon}</div>
+                        <div class="course-content">
+                            <span class="course-category">${course.category.replace('-', ' ').toUpperCase()}</span>
+                            <h3 class="course-title">${course.title}</h3>
+                            <p class="course-instructor">👤 ${course.instructor}</p>
+                            <div class="course-stats">
+                                <span class="stat">⭐ ${course.rating}</span>
+                                <span class="stat">👥 ${course.students.toLocaleString()}</span>
+                                <span class="stat">⏱️ ${course.duration}</span>
+                            </div>
+                            <div class="course-footer">
+                                <span class="course-price">₹${course.price.toLocaleString()}</span>
+                                <button class="add-to-cart-btn" onclick="addToCart(${course.id})">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                coursesGrid.innerHTML += courseCard;
+            });
+        }
+
+        // Filter by category
+        function filterByCategory(category) {
+            currentFilter = category;
+            
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter courses
+            const filtered = category === 'all' 
+                ? courses 
+                : courses.filter(course => course.category === category);
+            
+            displayCourses(filtered);
+        }
+
+        // Search courses
+        function filterCourses() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            let filtered = currentFilter === 'all' 
+                ? courses 
+                : courses.filter(course => course.category === currentFilter);
+            
+            if (searchTerm) {
+                filtered = filtered.filter(course => 
+                    course.title.toLowerCase().includes(searchTerm) ||
+                    course.instructor.toLowerCase().includes(searchTerm) ||
+                    course.category.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            displayCourses(filtered);
+        }
+
+        // Add to cart
+        function addToCart(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            
+            if (!cart.find(item => item.id === courseId)) {
+                cart.push(course);
+                updateCart();
+                
+                // Visual feedback
+                event.target.textContent = '✓ Added';
+                event.target.classList.add('added');
+                
+                setTimeout(() => {
+                    event.target.textContent = 'Add to Cart';
+                    event.target.classList.remove('added');
+                }, 2000);
+            } else {
+                alert('Course already in cart!');
+            }
+        }
+
+        // Update cart display
+        function updateCart() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            const totalAmount = document.getElementById('totalAmount');
+
+            cartCount.textContent = cart.length;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart"><p>Your cart is empty</p></div>';
+                cartTotal.style.display = 'none';
+            } else {
+                let total = 0;
+                cartItems.innerHTML = '';
+                
+                cart.forEach(course => {
+                    total += course.price;
+                    cartItems.innerHTML += `
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <h4>${course.title}</h4>
+                                <p class="cart-item-price">₹${course.price.toLocaleString()}</p>
+                            </div>
+                            <button class="remove-item" onclick="removeFromCart(${course.id})">Remove</button>
+                        </div>
+                    `;
+                });
+
+                totalAmount.textContent = total.toLocaleString();
+                cartTotal.style.display = 'block';
+            }
+        }
+
+        // Remove from cart
+        function removeFromCart(courseId) {
+            cart = cart.filter(course => course.id !== courseId);
+            updateCart();
+        }
+
+        // Toggle cart modal
+        function toggleCart() {
+            const cartModal = document.getElementById('cartModal');
+            cartModal.classList.toggle('active');
+        }
+
+        // Checkout
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            alert(`Thank you for your purchase! Total: ₹${cart.reduce((sum, course) => sum + course.price, 0).toLocaleString()}\n\nYou will receive access to your courses via email.`);
+            cart = [];
+            updateCart();
+            toggleCart();
+        }
+
+        // Close cart when clicking outside
+        window.onclick = function(event) {
+            const cartModal = document.getElementById('cartModal');
+            if (event.target === cartModal) {
+                toggleCart();
+            }
+        }
+
+        // Initialize
+        displayCourses(courses);
+    </script>
+</body>
+</html>
